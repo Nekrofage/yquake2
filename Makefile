@@ -228,7 +228,7 @@ INCLUDE := -I/usr/include -I$(PREFIX)/DGE/include -I$(PREFIX)/DGE/include/SDL
 else ifeq ($(WIZ),yes)
 INCLUDE := -I/usr/include -I$(PREFIX)/include -I$(PREFIX)/include/SDL
 else ifeq ($(PI),yes)
-INCLUDE := -I$(PREFIX)/opt/vc/include/interface/vcos/pthreads -I$(PREFIX)/opt/vc/include -I/usr/include -I$(PREFIX)/usr/include/SDL
+INCLUDE := -I$(PREFIX)/opt/vc/include/interface/vcos/pthreads -I$(PREFIX)/opt/vc/include -I/usr/include -I$(PREFIX)/usr/include/SDL -I/opt/vc/include/interface/vmcs_host/linux
 else # Normal Linux
 INCLUDE := -I/usr/include
 endif
