@@ -918,6 +918,12 @@ struct gclient_s
 
 	float respawn_time; /* can respawn when time > this */
 
+// Debut Mod : Chasecam
+        int             chasetoggle;
+        edict_t         *chasecam;
+        edict_t         *oldplayer;
+// Fin Mod : Chasecam
+
 	edict_t *chase_target; /* player we are chasing */
 	qboolean update_chase; /* need to update chase info? */
 };
@@ -1067,6 +1073,15 @@ struct edict_s
 	/* common data blocks */
 	moveinfo_t moveinfo;
 	monsterinfo_t monsterinfo;
+
+// Debut Mod : Chasecam
+        int chasedist1;
+        int chasedist2;
+// Fin Mod : Chasecam
 };
+
+// Debut Mod : Chasecam
+extern void CheckChasecam_Viewent(edict_t *ent);
+// Fin Mod : Chasecam
 
 #endif /* GAME_LOCAL_H */

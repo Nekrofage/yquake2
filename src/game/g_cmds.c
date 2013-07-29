@@ -1315,6 +1315,12 @@ ClientCommand(edict_t *ent)
 	{
 		Cmd_Wave_f(ent);
 	}
+// Debut Mod : Chasecam
+        else if (Q_stricmp (cmd, "chasecam") == 0)
+	{
+                Cmd_Chasecam_Toggle (ent);
+	}
+// Fin Mod : Chasecam
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 	{
 		Cmd_PlayerList_f(ent);

@@ -272,6 +272,14 @@ ChangeWeapon(edict_t *ent)
 
 	ent->client->weaponstate = WEAPON_ACTIVATING;
 	ent->client->ps.gunframe = 0;
+
+// Debut Mod : Chasecam
+        if (!ent->client->chasetoggle)
+	{
+                ent->client->ps.gunindex = gi.modelindex(ent->client->pers.weapon->view_model);
+	}
+// Fin Mod : Chasecam
+
 	ent->client->ps.gunindex = gi.modelindex(
 			ent->client->pers.weapon->view_model);
 

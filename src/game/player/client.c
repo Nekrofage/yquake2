@@ -1488,6 +1488,17 @@ CopyToBodyQue(edict_t *ent)
 void
 respawn(edict_t *self)
 {
+// Debut Mod : Chasecam
+	if (self->client->oldplayer) 
+	{
+		G_FreeEdict (self->client->oldplayer); 
+	}
+	if (self->client->chasecam) 
+	{
+		G_FreeEdict (self->client->chasecam); 
+	}
+// Fin Mod : Chasecam
+
 	if (!self)
 	{
 		return;
@@ -1723,6 +1734,9 @@ PutClientInServer(edict_t *ent)
 	ent->waterlevel = 0;
 	ent->watertype = 0;
 	ent->flags &= ~FL_NO_KNOCKBACK;
+// Debut Mod : Chasecam
+	ent->svflags &= ~SVF_NOCLIENT;
+// Fin Mod : Chasecam
 	ent->svflags = 0;
 
 	VectorCopy(mins, ent->mins);
