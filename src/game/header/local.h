@@ -522,6 +522,14 @@ extern cvar_t *sv_cheats;
 extern cvar_t *maxclients;
 extern cvar_t *maxspectators;
 
+// Debut Mod : Hook
+extern cvar_t *hook_speed;
+extern cvar_t *hook_min_len;
+extern cvar_t *hook_max_len;
+extern cvar_t *hook_rpf;
+extern cvar_t *hook_no_pred;
+// Fin Mod : Hook
+
 extern cvar_t *flood_msgs;
 extern cvar_t *flood_persecond;
 extern cvar_t *flood_waitdelay;
@@ -875,6 +883,9 @@ struct gclient_s
 	float killer_yaw; /* when dead, look at killer */
 
 	weaponstate_t weaponstate;
+// Debut Mod : Hook
+	int hookstate_;
+// Fin Mod : Hook
 	vec3_t kick_angles; /* weapon kicks */
 	vec3_t kick_origin;
 	float v_dmg_roll, v_dmg_pitch, v_dmg_time; /* damage kicks */

@@ -232,6 +232,14 @@ InitGame(void)
 	bob_pitch = gi.cvar("bob_pitch", "0.002", 0);
 	bob_roll = gi.cvar("bob_roll", "0.002", 0);
 
+// Debut Mod : Hook
+	hook_speed = gi.cvar ("hook_speed", "1000", 0);
+	hook_min_len = gi.cvar ("hook_min_len", "40", 0);
+	hook_max_len = gi.cvar ("hook_max_len", "1000", 0);
+	hook_rpf = gi.cvar ("hook_rpf", "40", 0);
+	hook_no_pred = gi.cvar ("hook_no_pred", "0", 0);
+// Fin Mod : Hook
+
 	/* flood control */
 	flood_msgs = gi.cvar("flood_msgs", "4", 0);
 	flood_persecond = gi.cvar("flood_persecond", "4", 0);

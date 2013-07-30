@@ -675,7 +675,12 @@ P_FallingDamage(edict_t *ent)
 	{
 		return;
 	}
-
+// Debut Mod : Hook
+ 	if (!(ent->client->ps.pmove.pm_flags & PMF_ON_GROUND)) 
+	{
+		return;
+	}
+// Fin Mod : Hook
 	if (ent->waterlevel == 2)
 	{
 		delta *= 0.25;

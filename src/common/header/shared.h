@@ -922,6 +922,10 @@ typedef enum
 #define CHAN_NO_PHS_ADD 8           /* send to all clients, not just ones in PHS (ATTN 0 will also do this) */
 #define CHAN_RELIABLE 16            /* send by reliable message, not datagram */
 
+// Debut Mod : Hook
+#define CHAN_HOOK 5
+// Fin Mod : Hook
+
 /* sound attenuation values */
 #define ATTN_NONE 0                 /* full volume the entire level */
 #define ATTN_NORM 1

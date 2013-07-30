@@ -428,6 +428,7 @@ GAME_OBJS_ = \
 	src/game/g_utils.o \
 	src/game/g_weapon.o \
 	src/game/s_cam.o \
+	src/game/p_hook.o \
 	src/game/monster/berserker/berserker.o \
 	src/game/monster/boss2/boss2.o \
 	src/game/monster/boss3/boss3.o \

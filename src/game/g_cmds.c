@@ -27,6 +27,10 @@
 #include "header/local.h"
 #include "monster/misc/player.h"
 
+// Debut Mod : Hook
+void Cmd_Hook_f (edict_t *ent);
+// Fin Mod : Hook
+
 char *
 ClientTeam(edict_t *ent)
 {
@@ -1321,6 +1325,12 @@ ClientCommand(edict_t *ent)
                 Cmd_Chasecam_Toggle (ent);
 	}
 // Fin Mod : Chasecam
+// Debut Mod : Hook
+	else if (Q_stricmp (cmd, "hook") == 0)
+	{
+		Cmd_Hook_f (ent);
+	}
+// Fin Mod : Hook
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 	{
 		Cmd_PlayerList_f(ent);

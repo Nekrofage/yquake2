@@ -72,6 +72,14 @@ cvar_t *bob_roll;
 
 cvar_t *sv_cheats;
 
+// Debut Mod : Hook
+cvar_t *hook_speed;  // speed of hook launch
+cvar_t *hook_min_len;// minimum chain length
+cvar_t *hook_max_len;// maximum chain length
+cvar_t *hook_rpf;    // rate(lengthen/shrink chain) per FRAMETIME
+cvar_t *hook_no_pred;// disable prediction while suspended in air by hook
+// Fin Mod : Hook
+
 cvar_t *flood_msgs;
 cvar_t *flood_persecond;
 cvar_t *flood_waitdelay;
