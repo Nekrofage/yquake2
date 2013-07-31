@@ -466,6 +466,7 @@ void Cmd_Hook_f (edict_t *ent)
 		// activate chain growth
 		if (Q_stricmp(s, "grow") == 0)
 		{
+			gi.cprintf(ent, PRINT_HIGH, "Hook grow\n");
 			*hookstate_ |= GROW_ON;
 			*hookstate_ -= *hookstate_ & SHRINK_ON;
 			return;
@@ -474,6 +475,7 @@ void Cmd_Hook_f (edict_t *ent)
 		// activate chain shrinking
 		if (Q_stricmp(s, "shrink") == 0)
 		{
+			gi.cprintf(ent, PRINT_HIGH, "Hook shrink\n");
 			*hookstate_ |= SHRINK_ON;		
 			*hookstate_ -= *hookstate_ & GROW_ON;
 		}
