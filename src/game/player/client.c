@@ -26,6 +26,9 @@
 
 #include "../header/local.h"
 #include "../monster/misc/player.h"
+// Debut Mod : Pet
+#include "../b_pet.h"
+// Fin Mod : Pet
 
 void ClientUserinfoChanged(edict_t *ent, char *userinfo);
 void SP_misc_teleporter_dest(edict_t *ent);
@@ -482,7 +485,10 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
 	char *message;
 	char *message2;
 	qboolean ff;
-
+// Debut Mod : Pet
+        gclient_t       *client=0;
+        int                     pet=0;
+// Fin Mod : Pet
 	if (!self || !inflictor)
 	{
 		return;
@@ -619,7 +625,17 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
 
 		self->enemy = attacker;
 
-		if (attacker && attacker->client)
+// Debut Mod : Pet
+//              if (attacker && attacker->client)
+                if (attacker && attacker->client)
+                        client = attacker->client;
+                else if (attacker && (attacker->svflags & SVF_MONSTER) && attacker->monsterinfo.PetOwner)
+                {
+                        client = attacker->monsterinfo.PetOwner->client;
+                        pet = 1;
+                }
+		if (client)
+// Fin Mod : Pet
 		{
 			switch (mod)
 			{
@@ -691,27 +707,39 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
 					message = "tried to invade";
 					message2 = "'s personal space";
 					break;
+// Debut Mod : Pet
+				default:
+					message = "was killed by";
+					message2 = "";
+					break;
+// Fin Mod : Pet
 			}
 
 			if (message)
 			{
-				gi.bprintf(PRINT_MEDIUM, "%s %s %s%s\n",
-						self->client->pers.netname,
-						message, attacker->client->pers.netname,
+// Debut Mod : Pet
+				if (pet) {
+					 gi.bprintf (PRINT_MEDIUM,"%s %s %s's %s%s\n", 
+						self->client->pers.netname, 
+						message, client->pers.netname, attacker->classname, 
 						message2);
-
+				} else {
+					gi.bprintf(PRINT_MEDIUM, "%s %s %s%s\n",
+						self->client->pers.netname,
+						message2);
+				}
 				if (deathmatch->value)
 				{
 					if (ff)
 					{
-						attacker->client->resp.score--;
+						client->resp.score--;
 					}
 					else
 					{
-						attacker->client->resp.score++;
+						client->resp.score++;
 					}
 				}
-
+// Fin Mod : Pet
 				return;
 			}
 		}
@@ -2245,9 +2273,16 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		return;
 	}
 
+// Debut Mod : Pet
+        if (ent->client->petcam)
+                ent = ent->client->petcam;
+// Fin Mod : Pet
+
 	pm_passent = ent;
 
-	if (ent->client->chase_target)
+// Debut Mod : Pet
+	if (client->chase_target)
+// Fin Mod : Pet
 	{
 		client->resp.cmd_angles[0] = SHORT2ANGLE(ucmd->angles[0]);
 		client->resp.cmd_angles[1] = SHORT2ANGLE(ucmd->angles[1]);
@@ -2262,10 +2297,14 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		{
 			client->ps.pmove.pm_type = PM_SPECTATOR;
 		}
+//  Debut Mod : Pet
+/*
 		else if (ent->s.modelindex != 255)
 		{
 			client->ps.pmove.pm_type = PM_GIB;
 		}
+*/
+// Fin Mod : Pet
 		else if (ent->deadflag)
 		{
 			client->ps.pmove.pm_type = PM_DEAD;
@@ -2309,6 +2348,10 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 
 		VectorCopy(pm.mins, ent->mins);
 		VectorCopy(pm.maxs, ent->maxs);
+
+// Debut Mod : Pet
+		 Pet_AdjustPetcam(client, SHORT2ANGLE(ucmd->angles[YAW]));
+// Fin Mod : Pet
 
 		client->resp.cmd_angles[0] = SHORT2ANGLE(ucmd->angles[0]);
 		client->resp.cmd_angles[1] = SHORT2ANGLE(ucmd->angles[1]);

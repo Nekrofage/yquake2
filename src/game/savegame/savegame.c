@@ -240,6 +240,12 @@ InitGame(void)
 	hook_no_pred = gi.cvar ("hook_no_pred", "0", 0);
 // Fin Mod : Hook
 
+// Debut Mod : Pet
+        petquota = gi.cvar ("petquota", "400", 0);
+        using_pets = gi.cvar ("using_pets", "1", 0);
+        dm_monsters = gi.cvar ("dm_monsters", "1", 0);
+// Fin Mod : Pet
+
 	/* flood control */
 	flood_msgs = gi.cvar("flood_msgs", "4", 0);
 	flood_persecond = gi.cvar("flood_persecond", "4", 0);

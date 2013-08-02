@@ -25,7 +25,9 @@
  */
 
 #include "header/local.h"
-
+// Debut Mod : Pet
+#include "b_pet.h"
+// Fin Mod : Pet
 /*
  * Returns true if the inflictor can
  * directly damage the target.  Used for
@@ -167,6 +169,10 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 		targ->touch = NULL;
 		monster_death_use(targ);
 	}
+
+// Debut Mod : Pet
+        Pet_Killed(targ, attacker);
+// Fin Mod : Pet
 
 	targ->die(targ, inflictor, attacker, damage, point);
 }
@@ -399,6 +405,38 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker)
 	{
 		return;
 	}
+
+// Debut Mod : Pet
+        // we now know that we are not both good guys
+// blinky, pets
+        // don't get angry at our teammembers/copets/owner
+        if (targ->monsterinfo.PetOwner)
+        {
+                if (OnSameTeam(targ, attacker))
+                {
+                        // help them if appropriate
+                        if (attacker->enemy)
+                        {
+                                if (targ->enemy && targ->enemy->client)
+                                        targ->oldenemy = targ->enemy;
+                                targ->enemy = attacker->enemy;
+                                if (!(targ->monsterinfo.aiflags & AI_DUCKED))
+                                        FoundTarget (targ);
+                        }
+                        return;
+                }
+                // fight back if appropriate
+                if (!targ->enemy)
+                {
+                        targ->enemy = attacker;
+                        if (!(targ->monsterinfo.aiflags & AI_DUCKED))
+                                FoundTarget (targ);
+                }
+                return;
+        }
+// end blinky, pets
+// if attacker is a client, get mad at them because he's good and we're not
+// Fin Mod : Pet
 
 	if (!(attacker->client) && !(attacker->svflags & SVF_MONSTER))
 	{

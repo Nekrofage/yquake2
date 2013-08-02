@@ -774,6 +774,19 @@ infantry_attack(edict_t *self)
 void
 SP_monster_infantry(edict_t *self)
 {
+// Debut Mod : Pet
+        if (self->monsterinfo.PetOwner && !using_pets->value)
+        {
+                G_FreeEdict (self);
+                return;
+        }
+        else if (deathmatch->value && !dm_monsters->value)
+        {
+
+                G_FreeEdict (self);
+                return;
+        }
+// Fin Mod : Pet
 	if (!self)
 	{
 		return;

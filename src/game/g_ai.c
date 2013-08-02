@@ -25,6 +25,9 @@
  */
 
 #include "header/local.h"
+// Debut Mod : Pet
+#include "b_pet.h"
+// Fin Mod : Pet
 
 extern cvar_t *maxclients;
 
@@ -495,8 +498,9 @@ FoundTarget(edict_t *self)
  * player games will have slightly
  * slower noticing monsters.
  */
-qboolean
-FindTarget(edict_t *self)
+// Debut Mod : Pet
+qboolean FindTarget_Original(edict_t *self)
+// Fin Mod : Pet
 {
 	edict_t *client;
 	qboolean heardit;
@@ -706,6 +710,19 @@ FindTarget(edict_t *self)
 
 	return true;
 }
+
+// Debut Mod : Pet
+qboolean FindTarget (edict_t *self)
+{
+        if (self->monsterinfo.PetOwner)
+                if (0 == (self->monsterinfo.TargetCounter++ % 20))
+                        return Pet_FindTarget(self);
+                else
+                        return false;
+        else
+                return FindTarget_Original(self);
+}
+// Fin Mod : Pet
 
 /* ============================================================================= */
 
@@ -1169,6 +1186,18 @@ ai_run(edict_t *self, float dist)
 		self->monsterinfo.trail_time = level.time;
 		return;
 	}
+
+// Debut Mod : Pet
+        // coop will change to another enemy if visible
+// blinky, pets
+//      if (coop->value)
+        if (coop->value || self->monsterinfo.PetOwner)
+        {       // FIXME: insane guys get mad with this, which causes crashes!
+                if (FindTarget (self))
+                        return;
+        }
+
+// Fin Mod : Pet
 
 	if ((self->monsterinfo.search_time) &&
 		(level.time > (self->monsterinfo.search_time + 20)))

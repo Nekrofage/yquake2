@@ -27,6 +27,10 @@
 #include "header/local.h"
 #include "monster/misc/player.h"
 
+// Debut Mod : Pet
+#include "b_pet.h"
+// Fin Mod : Pet
+
 // Debut Mod : Hook
 void Cmd_Hook_f (edict_t *ent);
 // Fin Mod : Hook
@@ -72,6 +76,14 @@ OnSameTeam(edict_t *ent1, edict_t *ent2)
 	char ent1Team[512];
 	char ent2Team[512];
 
+// Debut Mod : Pet
+        ent1=GetOwner(ent1);
+        ent2=GetOwner(ent2);
+        if (!ent1) return !ent2;
+        if (!ent2) return false;
+        if (coop->value) return true;
+        if (ent1 == ent2) return true; // this covers copets
+// Fin Mod : Pet
 	if (!ent1 || !ent2)
 	{
 		return false;
@@ -1335,6 +1347,60 @@ ClientCommand(edict_t *ent)
 	{
 		Cmd_PlayerList_f(ent);
 	}
+// Debut Mod : Pet
+        else if (Q_stricmp(cmd, "m_berserk") == 0)
+                Cmd_Pet_f(ent, "monster_berserk");
+        else if (Q_stricmp(cmd, "m_gladiator") == 0)
+                Cmd_Pet_f(ent, "monster_gladiator");
+        else if (Q_stricmp(cmd, "m_gunner") == 0)
+                Cmd_Pet_f(ent, "monster_gunner");
+        else if (Q_stricmp(cmd, "m_infantry") == 0)
+                Cmd_Pet_f(ent, "monster_infantry");
+        else if (Q_stricmp(cmd, "m_soldier") == 0)
+                Cmd_Pet_f(ent, "monster_soldier");
+        else if (Q_stricmp(cmd, "m_tank") == 0)
+                Cmd_Pet_f(ent, "monster_tank");
+        else if (Q_stricmp(cmd, "m_supertank") == 0)
+                Cmd_Pet_f(ent, "monster_supertank");
+        else if (Q_stricmp(cmd, "m_medic") == 0)
+                Cmd_Pet_f(ent, "monster_medic");
+        else if (Q_stricmp(cmd, "m_flipper") == 0)
+                Cmd_Pet_f(ent, "monster_flipper");
+        else if (Q_stricmp(cmd, "m_chick") == 0)
+                Cmd_Pet_f(ent, "monster_chick");
+        else if (Q_stricmp(cmd, "m_parasite") == 0)
+                Cmd_Pet_f(ent, "monster_parasite");
+        else if (Q_stricmp(cmd, "m_flyer") == 0)
+                Cmd_Pet_f(ent, "monster_flyer");
+        else if (Q_stricmp(cmd, "m_brain") == 0)
+                Cmd_Pet_f(ent, "monster_brain");
+        else if (Q_stricmp(cmd, "m_floater") == 0)
+                Cmd_Pet_f(ent, "monster_floater");
+        else if (Q_stricmp(cmd, "m_hover") == 0)
+                Cmd_Pet_f(ent, "monster_hover");
+        else if (Q_stricmp(cmd, "m_mutant") == 0)
+                Cmd_Pet_f(ent, "monster_mutant");
+        else if (Q_stricmp(cmd, "m_insane") == 0)
+                Cmd_Pet_f(ent, "misc_insane");
+        else if (Q_stricmp(cmd, "petcam") == 0)
+                Cmd_Petcam_f(ent);
+        else if (Q_stricmp(cmd, "petcamoff") == 0)
+                Cmd_PetcamOff_f(ent);
+        else if (Q_stricmp(cmd, "petstop") == 0)
+                Cmd_PetStop_f(ent);
+        else if (Q_stricmp(cmd, "petgo") == 0)
+                Cmd_PetGo_f(ent);
+        else if (Q_stricmp(cmd, "petfollow") == 0)
+                Cmd_PetFollow_f(ent);
+        else if (Q_stricmp(cmd, "petfree") == 0)
+                Cmd_PetFree_f(ent);
+        else if (Q_stricmp(cmd, "petlist") == 0)
+                Cmd_PetList_f(ent);
+        else if (Q_stricmp(cmd, "decoy") == 0)
+                Cmd_Pet_f(ent, "monster_decoy");
+        else if (Q_stricmp(cmd, "riot") == 0)
+                Cmd_Pet_Riot_f(ent);
+// Fin Mod : Pet
 	else /* anything that doesn't match a command will be a chat */
 	{
 		Cmd_Say_f(ent, false, true);

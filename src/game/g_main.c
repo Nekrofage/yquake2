@@ -80,6 +80,12 @@ cvar_t *hook_rpf;    // rate(lengthen/shrink chain) per FRAMETIME
 cvar_t *hook_no_pred;// disable prediction while suspended in air by hook
 // Fin Mod : Hook
 
+// Debut Mod : Pet
+cvar_t *petquota;
+cvar_t *using_pets;
+cvar_t *dm_monsters;
+// Fin Mod : Pet
+
 cvar_t *flood_msgs;
 cvar_t *flood_persecond;
 cvar_t *flood_waitdelay;

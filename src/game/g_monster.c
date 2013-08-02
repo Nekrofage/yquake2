@@ -25,6 +25,9 @@
  */
 
 #include "header/local.h"
+// Debut Mod : Pet
+#include "b_pet.h"
+// Fin Mod : Pet
 
 void monster_start_go(edict_t *self);
 
@@ -523,6 +526,11 @@ M_MoveFrame(edict_t *self)
 	move = self->monsterinfo.currentmove;
 	self->nextthink = level.time + FRAMETIME;
 
+// Debut Mod : Pet
+        if (!Pet_DoesMonsterMove(self))
+                return;
+// Fin Mod : Pet
+
 	if ((self->monsterinfo.nextframe) &&
 		(self->monsterinfo.nextframe >= move->firstframe) &&
 		(self->monsterinfo.nextframe <= move->lastframe))
@@ -754,6 +762,19 @@ monster_death_use(edict_t *self)
 qboolean
 monster_start(edict_t *self)
 {
+// Debut Mod : Pet
+        if (self->monsterinfo.PetOwner && !using_pets->value)
+        {
+                G_FreeEdict (self);
+                return false;
+        }
+        else if (deathmatch->value && !dm_monsters->value)
+        {
+
+                G_FreeEdict (self);
+                return false;
+        }
+// Fin Mod : Pet
 	if (!self)
 	{
 		return false;

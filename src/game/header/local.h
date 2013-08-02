@@ -430,6 +430,13 @@ typedef struct
 
 	int power_armor_type;
 	int power_armor_power;
+// Debut Mod : Pet
+        edict_t *   PetOwner;
+        int PetState;
+        int TargetCounter;
+        char name[12];
+// Fin Mod : Pet
+
 } monsterinfo_t;
 
 extern game_locals_t game;
@@ -529,6 +536,13 @@ extern cvar_t *hook_max_len;
 extern cvar_t *hook_rpf;
 extern cvar_t *hook_no_pred;
 // Fin Mod : Hook
+
+
+// Debut Mod : Pet
+extern cvar_t *petquota;
+extern cvar_t *using_pets;
+extern cvar_t *dm_monsters;
+// Fin Mod : Pet
 
 extern cvar_t *flood_msgs;
 extern cvar_t *flood_persecond;
@@ -637,6 +651,13 @@ void T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 void T_RadiusDamage(edict_t *inflictor, edict_t *attacker,
 		float damage, edict_t *ignore, float radius,
 		int mod);
+
+// Debut Mod : Pet
+//
+// p_weapon.c
+//
+void P_ProjectSource (gclient_t *client, vec3_t point, vec3_t distance, vec3_t forward, vec3_t right, vec3_t result);
+// Fin Mod : Pet
 
 /* damage flags */
 #define DAMAGE_RADIUS 0x00000001 /* damage was indirect */
@@ -934,6 +955,13 @@ struct gclient_s
         edict_t         *chasecam;
         edict_t         *oldplayer;
 // Fin Mod : Chasecam
+
+// Debut Mod : Pet
+        int PetCount;
+        int PetStrength;
+        edict_t * petcam;
+        float LastCampetYaw;
+// Fin Mod : Pet
 
 	edict_t *chase_target; /* player we are chasing */
 	qboolean update_chase; /* need to update chase info? */

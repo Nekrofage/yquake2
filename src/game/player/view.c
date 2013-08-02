@@ -372,6 +372,33 @@ SV_CalcViewOffset(edict_t *ent)
         // absolutely bound offsets
         // so the view can never be outside the player box
 
+// Debut Mod : Pet
+        if (!ent->client->petcam) {
+
+        if (v[0] < -14)
+                v[0] = -14;
+        else if (v[0] > 14)
+                v[0] = 14;
+        if (v[1] < -14)
+                v[1] = -14;
+        else if (v[1] > 14)
+                v[1] = 14;
+        if (v[2] < -22)
+                v[2] = -22;
+        else if (v[2] > 30)
+                v[2] = 30;
+        } else {
+                int i;
+                VectorSet(v,0,0,0);
+                for (i=0; i<3; i++)
+                {
+                        ent->client->ps.pmove.origin[i] = ent->client->petcam->s.origin[i]*8;
+                }
+                ent->client->ps.pmove.origin[2] += ent->client->petcam->maxs[2]*8;
+        }
+
+// Debut Mod : Pet
+
 // Debut Mod : Chasecam
         if (!ent->client->chasetoggle)
         {
@@ -399,8 +426,8 @@ SV_CalcViewOffset(edict_t *ent)
                         VectorCopy (ent->client->chasecam->s.angles, ent->client->ps.viewangles);
                 }
         }
-        VectorCopy (v, ent->client->ps.viewoffset);
 // Fin Mod : Chasecam
+        VectorCopy (v, ent->client->ps.viewoffset);
 }
 
 void

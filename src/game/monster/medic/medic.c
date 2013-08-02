@@ -864,6 +864,10 @@ medic_cable_attack(edict_t *self)
 			self->enemy->enemy = self->oldenemy;
 			FoundTarget(self->enemy);
 		}
+// Debut Mod : Pet
+   		// resurrected monster gets same owner as medic
+    		self->enemy->monsterinfo.PetOwner = self->monsterinfo.PetOwner;
+// Fin Mod : Pet
 	}
 	else
 	{
